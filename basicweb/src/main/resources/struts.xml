@@ -22,6 +22,9 @@
            <action name="bookInsert">
     <result>/BookForm.jsp</result>
         </action>
+        <action name="setbook">
+    <result>/SetBookForm.jsp</result>
+        </action>
     <action name="studentSelect" class="action.StudentAction" method="select">
     <result name="success">/selectStudents.jsp</result>
     
@@ -45,7 +48,6 @@
       <interceptor-ref name="params"/>
             <result name="success">/prints.jsp</result>
            
-            
         </action>
         <action name="StaffDataInsert" class="action.StaffAction" method="insert">
       <interceptor-ref name="params"/>
@@ -58,6 +60,11 @@
             <result name="success">/prints.jsp</result>
            
             
+        </action>
+        <action name="setborrow" class="action.BookAction" method="buyBooks">
+      <interceptor-ref name="params"/>
+            <result name="success">/prints.jsp</result>
+           
         </action>
         
    

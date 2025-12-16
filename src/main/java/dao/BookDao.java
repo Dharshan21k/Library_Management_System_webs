@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import action.BookAction;
 import model.Book;
+import model.BorrowedBooks;
 
 
 public class BookDao {
@@ -49,8 +51,7 @@ finally {
 		ArrayList<Book> ls=new ArrayList<>();
 		try {
 			con=StudentDao.getConnection();
-			
-			String Query="select * from Book";
+			String Query="select * from Book order by title";
 			PreparedStatement stmt=con.prepareStatement(Query);
 			ResultSet rs=stmt.executeQuery();
 			
@@ -75,6 +76,42 @@ finally {
 		}
 		return ls;
 		
+		
+	}
+	
+		
+	public static int assignBook(BorrowedBooks bb) throws SQLException {
+		String bookName=BookAction.bookName;
+		Connection con=null;
+		String Query="select bookId from Book where title=?";
+		Integer id=null;
+		Integer status=null;
+		PreparedStatement stmt;
+		try {
+			con=StudentDao.getConnection();
+			stmt=con.prepareStatement(Query);
+		stmt.setString(1,bookName);
+		 ResultSet rs=stmt.executeQuery();
+		 if (rs.next()) {
+	         id = rs.getInt("bookId");
+	     } else {
+	         System.out.println("Book not found!");
+	     }
+		 Query="insert into BorrowedBook(bookId,rollNum,borrowDate,returnDate) values(?,?,?,?)";
+			stmt=con.prepareStatement(Query);
+			stmt.setInt(1,id);
+			stmt.setString(2,bb.getRollNum());
+			stmt.setString(3,bb.getBorrowDate());
+			stmt.setString(4,bb.getReturnDate());
+			status=stmt.executeUpdate();
+		 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			con.close();
+		}
+		return status;
 		
 	}
 }

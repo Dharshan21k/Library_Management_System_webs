@@ -3,13 +3,14 @@ package action;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.struts2.ActionSupport;
 import org.apache.struts2.interceptor.parameter.StrutsParameter;
 
 import dao.StaffDao;
 import dao.StudentDao;
 import model.Staff;
 
-public class StaffAction {
+public class StaffAction extends ActionSupport {
 	Staff st=new Staff();
 	ArrayList<Staff> ar=new ArrayList<>();
 	@StrutsParameter(depth=1)

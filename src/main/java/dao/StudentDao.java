@@ -6,8 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-
+import model.BorrowedBooks;
 import model.Student;
 
 public class StudentDao {
@@ -106,6 +107,35 @@ static int startNum=1;
 				stu.setDepartmentName(rs.getString("departmentName"));
 				stu.setEnrolledYear(rs.getInt("enrolledYear"));
 				ls.add(stu);
+			}
+			
+		}catch(Exception e) {
+			
+			throw e;
+			
+		}
+		finally {
+			con.close();
+		}
+		return ls;
+		
+		
+	}
+	public static ArrayList selectBookStudent() throws Exception {
+		Connection con=null;
+		ArrayList<List<String>> ls=new ArrayList<>();
+		try {
+			con=getConnection();
+			
+			String Query="select s.name,count(bb.rollNum) as total from Student s left join BorrowedBook bb on s.rollNum=bb.rollNum  group by s.name order by total desc";
+			PreparedStatement stmt=con.prepareStatement(Query);
+			ResultSet rs=stmt.executeQuery();
+			
+			while(rs.next()) {
+				ArrayList<String> ar=new ArrayList<>();
+				ar.add(rs.getString("name"));
+				ar.add(String.valueOf(rs.getInt("total")));
+				ls.add(ar);
 			}
 			
 		}catch(Exception e) {

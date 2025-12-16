@@ -20,9 +20,8 @@
             genre:<s:property value="genre" />
 		<br>
            available Copies:<s:property value="availableCopies" />
-		
              
-               
+     
                
 		<br>
 		<br>

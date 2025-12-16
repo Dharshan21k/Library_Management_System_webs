@@ -1,16 +1,29 @@
 package action;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.struts2.interceptor.parameter.StrutsParameter;
 
 import dao.BookDao;
-import dao.StaffDao;
+
 import model.Book;
+import model.BorrowedBooks;
 
 public class BookAction {
+	
+	 public static String bookName;
 	Book book=new Book();
+	BorrowedBooks bb=new BorrowedBooks();
+	@StrutsParameter(depth=1)
+	public BorrowedBooks getBb() {
+		return bb;
+	}
+	@StrutsParameter
+	public void setBb(BorrowedBooks bb) {
+		this.bb = bb;
+	}
 	ArrayList<Book> ls =new ArrayList<>();
 	@StrutsParameter(depth=1)
 	public Book getBook() {
@@ -49,6 +62,24 @@ public class BookAction {
 		}
 		System.out.println("hello");
 		return "success";
+		
+	}
+	
+	public String getBookName() {
+		return bookName;
+	}
+	@StrutsParameter
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String buyBooks() throws SQLException {
+		int i=0;
+		try {
+			i=BookDao.assignBook(bb);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return i>0?"success":"error";
 		
 	}
 

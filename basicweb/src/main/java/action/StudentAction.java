@@ -13,10 +13,19 @@ import model.Student;
 public class StudentAction extends ActionSupport{
 	Student student=new Student();
 	 private ArrayList<Student> list=new ArrayList<>();
+	 ArrayList<ArrayList<String>> ar=new ArrayList<>();
 	  @StrutsParameter(depth = 1)
 	public Student getStudent() {
 		return student;
 	}
+	  @StrutsParameter(depth = 1)
+public ArrayList<ArrayList<String>> getAr() {
+		return ar;
+	}
+@StrutsParameter
+	  public void setAr(ArrayList<ArrayList<String>> ar) {
+		  this.ar = ar;
+	  }
 @StrutsParameter
 	public void setStudent(Student student) {
 		this.student = student;
@@ -52,5 +61,17 @@ public void setList(ArrayList<Student> list) {
 		return "success";
 		
 	}
+	public String  selectByOrder() {
+		try {
+			ar=StudentDao.selectBookStudent();
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "success";
+		
+	}
+	
 
 }

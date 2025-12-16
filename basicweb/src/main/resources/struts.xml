@@ -43,6 +43,12 @@
             
     
         </action>
+         <action name="selectorder" class="action.StudentAction" method="selectByOrder">
+    <result name="success">/selectOrder.jsp</result>
+    
+            
+    
+        </action>
   
      <action name="datainsert" class="action.StudentAction" method="insert">
       <interceptor-ref name="params"/>

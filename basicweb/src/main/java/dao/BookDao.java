@@ -51,7 +51,7 @@ finally {
 		ArrayList<Book> ls=new ArrayList<>();
 		try {
 			con=StudentDao.getConnection();
-			String Query="select * from Book";
+			String Query="select * from Book order by title";
 			PreparedStatement stmt=con.prepareStatement(Query);
 			ResultSet rs=stmt.executeQuery();
 			

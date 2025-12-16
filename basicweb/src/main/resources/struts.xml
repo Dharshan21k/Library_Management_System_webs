@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "https://struts.apache.org/dtds/struts-2.0.dtd">
+        
+        
+<struts>
+
+   <constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="struts"/>
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+    
+    <package name="basicstruts2" extends="struts-default">
+    
+    <action name="studentInsert">
+    <result>/StudentForm.jsp</result>
+        </action>
+        <action name="staffInsert">
+    <result>/StaffForm.jsp</result>
+        </action>
+           <action name="bookInsert">
+    <result>/BookForm.jsp</result>
+        </action>
+        <action name="setbook">
+    <result>/SetBookForm.jsp</result>
+        </action>
+    <action name="studentSelect" class="action.StudentAction" method="select">
+    <result name="success">/selectStudents.jsp</result>
+    
+            
+    
+        </action>
+         <action name="staffSelect" class="action.StaffAction" method="select">
+    <result name="success">/SelectStaff.jsp</result>
+    
+            
+    
+        </action>
+        <action name="bookSelect" class="action.BookAction" method="select">
+    <result name="success">/SelectBook.jsp</result>
+    
+            
+    
+        </action>
+         <action name="selectorder" class="action.StudentAction" method="selectByOrder">
+    <result name="success">/selectOrder.jsp</result>
+    
+            
+    
+        </action>
+  
+     <action name="datainsert" class="action.StudentAction" method="insert">
+      <interceptor-ref name="params"/>
+            <result name="success">/prints.jsp</result>
+           
+        </action>
+        <action name="StaffDataInsert" class="action.StaffAction" method="insert">
+      <interceptor-ref name="params"/>
+            <result name="success">/prints.jsp</result>
+           
+            
+        </action>
+        <action name="insertDataBook" class="action.BookAction" method="insert">
+      <interceptor-ref name="params"/>
+            <result name="success">/prints.jsp</result>
+           
+            
+        </action>
+        <action name="setborrow" class="action.BookAction" method="buyBooks">
+      <interceptor-ref name="params"/>
+            <result name="success">/prints.jsp</result>
+           
+        </action>
+        
+   <action name="register">
+    <result>/RegisterForm.jsp</result>
+   
+   </action>
+   <action name="login">
+    <result>/loginForm.jsp</result>
+   
+   </action>
+   <action name="dataregister" class="action.RegisterAction" method="insert">
+      <interceptor-ref name="params"/>
+      <interceptor-ref name="validation"/>
+    <interceptor-ref name="workflow"/>
+      <result name="input">/RegisterForm.jsp</result>
+            <result name="success">/main.html</result>
+            <result name="error">/exist.jsp</result>
+            
+            
+        </action>
+        
+        <action name="datalogin" class="action.RegisterAction" method="select">
+     
+      <interceptor-ref name="params"/>
+           
+     
+    
+            <result name="success">/main.html</result>
+            <result name="error">/error.jsp</result>
+           
+            
+        </action>
+
+ </package>
+    
+
+</struts>

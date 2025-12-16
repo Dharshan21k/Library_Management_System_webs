@@ -73,8 +73,36 @@
            
         </action>
         
+   <action name="register">
+    <result>/RegisterForm.jsp</result>
    
+   </action>
+   <action name="login">
+    <result>/loginForm.jsp</result>
    
+   </action>
+   <action name="dataregister" class="action.RegisterAction" method="insert">
+      <interceptor-ref name="params"/>
+      <interceptor-ref name="validation"/>
+    <interceptor-ref name="workflow"/>
+      <result name="input">/RegisterForm.jsp</result>
+            <result name="success">/main.html</result>
+            <result name="error">/exist.jsp</result>
+            
+            
+        </action>
+        
+        <action name="datalogin" class="action.RegisterAction" method="select">
+     
+      <interceptor-ref name="params"/>
+           
+     
+    
+            <result name="success">/main.html</result>
+            <result name="error">/error.jsp</result>
+           
+            
+        </action>
 
  </package>
     

@@ -22,7 +22,7 @@
 <s:form id ="registerForm" action="dataregister" method="post">
  <s:textfield name="register.userName" label="create Username"/><br>
  <s:textfield name="register.email" label="create email"/><br>
- <s:textfield name="register.password" label="create password"/>
+ <s:password name="register.password" label="create password"/>
   <s:submit value="Submit"/>
  </s:form>
 </body>

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt.Result;
 import model.Register;
 
 public class RegisterDao {
@@ -16,14 +17,23 @@ public class RegisterDao {
 		try {
 			 con=StudentDao.getConnection();
 			con.setAutoCommit(false);
-			String Query="insert into Register(userName,email,password) values(?,?,?)";
+			String Query="insert into Register(userName,email,otp,password) values(?,?,?,?)";
 			PreparedStatement stmt=con.prepareStatement(Query);
+			String hashpass=res.getPassword();
+			String c=BCrypt.withDefaults().hashToString(10,hashpass.toCharArray());
+			int min=1;
+			int max=6;
+			String otp="";
+			for(int i=0;i<6;i++) {
+			 otp =(int)(Math.random() * max) + min+otp;
+			}
 			
 			
-
 			stmt.setString(1,res.getUserName());
 			stmt.setString(2, res.getEmail());
-			stmt.setString(3,res.getPassword());
+			System.out.println(otp);
+			stmt.setString(3,otp);
+			stmt.setString(4,c);
 			affectedRows=stmt.executeUpdate();
 			con.commit();
 			
@@ -45,17 +55,28 @@ public class RegisterDao {
 		Integer finder=null;
 		try {
 			con=StudentDao.getConnection();
-			String Query="select 1 as find from Register where email=? and password=?";
+			String Query="select password from Register where email=?";
 			PreparedStatement stmt=con.prepareStatement(Query);
 			stmt.setString(1,r.getEmail());
-			stmt.setString(2,r.getPassword());
+			
+			
 			ResultSet rs=stmt.executeQuery();
-			if (rs.next()) {                
-		        finder = rs.getInt("find");  
-		    } else {
-		        finder = 0;                  
-		    }
-
+			
+			if (rs.next()) {
+			    String storedHash = rs.getString("password");
+			    BCrypt.Result result =
+			    	    BCrypt.verifyer().verify(
+			    	        r.getPassword().toCharArray(),
+			    	        storedHash.toCharArray()
+			    	    );
+			    if (result.verified) {
+			        finder = 1;
+			    } else {
+			        finder = 0;
+			    }
+			} else {
+			    finder = 0;
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -63,7 +84,6 @@ public class RegisterDao {
 		finally {
 			con.close();
 		}
-		System.out.println(r.getPassword());
 		return finder;
 		
 		

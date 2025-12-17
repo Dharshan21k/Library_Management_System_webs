@@ -6,10 +6,14 @@ public class Register {
 	String userName;
 	String email;
 	String password;
+	String otp;
 	
 	
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
 	public void setPassword(String password) {
-		this.password = BCrypt.withDefaults().hashToString(10,password.toCharArray());;
+		this.password = password;
 	}
 	public void setEmail(String email) {
 		this.email = email;
@@ -26,6 +30,8 @@ public class Register {
 	public String getPassword() {
 		return password;
 	}
-	
+	public String getOtp() {
+		return otp;
+	}
 
 }

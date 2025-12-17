@@ -19,7 +19,7 @@
 <s:form id="loginForm" action="datalogin" method="post">
 
  <s:textfield name="register.email" label="Enter email"/><br>
- <s:textfield name="register.password" label="Enter password"/>
+ <s:password name="register.password" label="Enter password"/>
   <s:submit value="Submit"/>
  </s:form>
 </body>

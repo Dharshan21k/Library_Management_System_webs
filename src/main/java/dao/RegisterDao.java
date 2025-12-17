@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import model.Register;
 
 public class RegisterDao {
@@ -17,6 +18,9 @@ public class RegisterDao {
 			con.setAutoCommit(false);
 			String Query="insert into Register(userName,email,password) values(?,?,?)";
 			PreparedStatement stmt=con.prepareStatement(Query);
+			
+			
+
 			stmt.setString(1,res.getUserName());
 			stmt.setString(2, res.getEmail());
 			stmt.setString(3,res.getPassword());
@@ -59,6 +63,7 @@ public class RegisterDao {
 		finally {
 			con.close();
 		}
+		System.out.println(r.getPassword());
 		return finder;
 		
 		

@@ -5,10 +5,18 @@
 <html>
 <head>
     <title>Actions Page</title>
+    <script>
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+            document.getElementById("StudentForm").reset();
+        }
+    });
+</script>
 </head>
+
 <body>
 
-<s:form action="datainsert" method="post">
+<s:form  id=" StudentForm" action="datainsert" method="post">
     <s:textfield name="student.name" label="Enter Student name"/>
     <s:textfield name="student.dateOfBirth" type="date" label="Enter Date of birth"/>
     <s:textfield name="student.bloodGroup" label="Enter Blood group"/>

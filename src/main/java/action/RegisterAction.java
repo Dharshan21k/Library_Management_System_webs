@@ -23,6 +23,7 @@ public class RegisterAction extends ActionSupport{
 	}
 	@Override
 	public String input() {
+		Register register=new Register();
 	    return INPUT;
 	}
 
@@ -43,6 +44,7 @@ public class RegisterAction extends ActionSupport{
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		return affectedRows>0?"success":"error";
 	}
 	public String select() {

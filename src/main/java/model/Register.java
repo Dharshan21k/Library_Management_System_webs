@@ -1,5 +1,7 @@
 package model;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class Register {
 	String userName;
 	String email;
@@ -7,7 +9,7 @@ public class Register {
 	
 	
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = BCrypt.withDefaults().hashToString(10,password.toCharArray());;
 	}
 	public void setEmail(String email) {
 		this.email = email;

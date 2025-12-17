@@ -6,11 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Page</title>
-
+<script>
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+            document.getElementById("loginForm").reset();
+        }
+    });
+</script>
 </head>
 <body>
 <h1>Login Here</h1><br>
-<s:form action="datalogin" method="post">
+<s:form id="loginForm" action="datalogin" method="post">
 
  <s:textfield name="register.email" label="Enter email"/><br>
  <s:textfield name="register.password" label="Enter password"/>

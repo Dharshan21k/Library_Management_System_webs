@@ -29,6 +29,7 @@ public class RegisterAction extends ActionSupport{
 
 @StrutsParameter(depth=1)
 	public Register getRegister() {
+	
 		return register;
 	}
 @StrutsParameter
@@ -56,6 +57,15 @@ public class RegisterAction extends ActionSupport{
 			e.printStackTrace();
 		}
 		return finder>0?"success":"error";
+	}
+	public String otpVerify() {
+		int updatedRecord=0;
+		try {
+			updatedRecord=RegisterDao.verifyOtp(register);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return updatedRecord>0?"success":"error";
 	}
 	
 }

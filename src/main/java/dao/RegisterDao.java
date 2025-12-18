@@ -88,5 +88,37 @@ public class RegisterDao {
 		
 		
 	}
+	public static int verifyOtp(Register res) {
+		Connection con=null;
+		int updatedRow=0;
+		try {
+			
+		con=StudentDao.getConnection();
+		
+		String Query="select otp from Register where email=?";
+		PreparedStatement  stmt=con.prepareStatement(Query);
+		stmt.setString(1, res.getEmail());
+		String enteredOtp=res.getOtp();
+		ResultSet resultset=stmt.executeQuery();
+		String verifyotp=null;
+		if(resultset.next()) {
+			 verifyotp=resultset.getString("otp");
+			
+		}
+		if(verifyotp!=null&&verifyotp.equals(enteredOtp)) {
+			Query="update Register set checks=1  where email=?";
+			stmt=con.prepareStatement(Query);
+			stmt.setString(1, res.getEmail());
+			updatedRow=stmt.executeUpdate();
+			
+		}
+	}
+		catch(Exception e) {
+		e.printStackTrace();
+	}
+		return updatedRow;
+		
+	}
+	
 
 }

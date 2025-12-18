@@ -96,7 +96,7 @@
       <interceptor-ref name="validation"/>
     <interceptor-ref name="workflow"/>
       <result name="input">/RegisterForm.jsp</result>
-            <result name="success">/main.html</result>
+            <result name="success">/OtpForm.jsp</result>
             <result name="error">/exist.jsp</result>
         </action>
         
@@ -105,6 +105,13 @@
         <action name="datalogin" class="action.RegisterAction" method="select">
       <interceptor-ref name="params"/>
             <result name="success">/main.html</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        
+        <action name="otpregister" class="action.RegisterAction" method="otpVerify">
+      <interceptor-ref name="params"/>
+            <result name="success">/loginForm.jsp</result>
             <result name="error">/error.jsp</result>
         </action>
         
